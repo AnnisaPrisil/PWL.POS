@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
 use App\Models\UserModel;
+use App\Models\Level;
 
 class UserController extends Controller
 {
     public function index(){
+
+        $user=UserModel::with('level')->get();
+        log::info('User data:',$user->toArray());
+        return view('user',['data'=>$user]);
         //$user = UserModel::all();
                 //return view('user',['data'=>$user]);
         
@@ -190,6 +195,8 @@ class UserController extends Controller
 
                 return redirect('/user');
             }
+
+
 
              
 
