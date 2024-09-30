@@ -11,7 +11,7 @@ class WelcomeController extends Controller{
         ];
 
 
-        $activemenu = 'dashboard';
-        return view ('welcome', ['breadcrumb'=>$breadcrumb, 'activemenu'=>$activemenu]);
+        $activeMenu = 'dashboard';
+        return view ('welcome', ['breadcrumb'=>$breadcrumb, 'activeMenu'=>$activeMenu]);
     }
 }

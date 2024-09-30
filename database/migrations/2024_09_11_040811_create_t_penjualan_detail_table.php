@@ -1,8 +1,10 @@
 <?php
 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+
 
 class CreateTPenjualanDetailTable extends Migration
 {
@@ -16,13 +18,18 @@ class CreateTPenjualanDetailTable extends Migration
             $table->integer('jumlah');
             $table->timestamps();
 
+
             $table->foreign('penjualan_id')->references('penjualan_id')->on('t_penjualan');
             $table->foreign('barang_id')->references('barang_id')->on('m_barang');
         });
     }
+
 
     public function down()
     {
         Schema::dropIfExists('t_penjualan_detail');
     }
 }
+
+
+
