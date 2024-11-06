@@ -8,14 +8,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class PenjualanDetail extends Model
-{
+class PenjualanDetail extends Model{
     use HasFactory;
 
 
     protected $table = 't_penjualan_detail';
-    protected $primaryKey = 'id';
-    protected $fillable = ['penjualan_id','barang_id','harga','jumlah'];
+    protected $primaryKey = 'penjualan_detail_id';
+   
+    protected $fillable = [
+        'penjualan_id',
+        'barang_id',
+        'jumlah',
+        'harga'
+    ];
 
 
     public function penjualan(){

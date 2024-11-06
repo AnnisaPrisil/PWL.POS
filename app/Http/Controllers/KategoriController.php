@@ -3,84 +3,104 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 
 class KategoriController extends Controller{
-
-    public function index(Request $request){
+    public function index(){
         $breadcrumb = (object) [
-            'title' => 'Daftar kategori yang terdaftar dalam sistem',
+            'title' => 'Daftar Kategori yang terdaftar dalam sistem',
             'list' => ['Home', 'Kategori']
         ];
 
 
-        if ($request->ajax()) {
-            return $this->getKategoriData();
-        }
+        return view('kategori.index', compact('breadcrumb'));
+    }
 
 
-        return view('Kategori.index', compact('breadcrumb'));
+    public function list(){
+        $kategori = Kategori::query();
+        return DataTables::of($kategori)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($kategori) {
+                return view('kategori.action-buttons', compact('kategori'));
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
     }
 
 
     public function create(){
-        $breadcrumb = (object) [
-            'title' => 'Tambah Kategori',
-            'list' => ['Home', 'Kategori', 'Tambah']
-        ];
-
-
-        return view('Kategori.create', compact('breadcrumb'));
+        return view('kategori.create');
     }
 
 
     public function store(Request $request){
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'kategori_kode' => 'required|unique:m_kategori,kategori_kode|max:255',
             'kategori_nama' => 'required|max:255',
         ]);
 
 
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'errors' => $validator->errors()]);
+        }
+
+
         try {
-            Kategori::create($validated);
-            return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan.');
+            $kategori = Kategori::create($validator->validated());
+            return response()->json([
+                'status' => true,
+                'message' => 'Kategori berhasil ditambahkan.',
+                'data' => $kategori
+            ]);
         } catch (\Exception $e) {
             Log::error('Error creating kategori: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menambahkan kategori.')->withInput();
+            return response()->json([
+                'status' => false,
+                'message' => 'Terjadi kesalahan saat menambahkan kategori.'
+            ], 500);
         }
     }
 
 
     public function edit($id){
         $kategori = Kategori::findOrFail($id);
-        $breadcrumb = (object) [
-            'title' => 'Edit Kategori',
-            'list' => ['Home', 'Kategori', 'Edit']
-        ];
-
-
-        return view('Kategori.edit', compact('kategori', 'breadcrumb'));
+        return view('kategori.edit', compact('kategori'));
     }
 
 
     public function update(Request $request, $id){
-        $validated = $request->validate([
-            'kategori_kode' => 'required|max:255',
+        $validator = Validator::make($request->all(), [
+            'kategori_kode' => 'required|max:255|unique:m_kategori,kategori_kode,'.$id.',kategori_id',
             'kategori_nama' => 'required|max:255',
         ]);
 
 
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'errors' => $validator->errors()]);
+        }
+
+
         try {
             $kategori = Kategori::findOrFail($id);
-            $kategori->update($validated);
-            return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui.');
+            $kategori->update($validator->validated());
+            return response()->json([
+                'status' => true,
+                'message' => 'Kategori berhasil diperbarui.',
+                'data' => $kategori
+            ]);
         } catch (\Exception $e) {
             Log::error('Error updating kategori: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui kategori.')->withInput();
+            return response()->json([
+                'status' => false,
+                'message' => 'Terjadi kesalahan saat memperbarui kategori.'
+            ], 500);
         }
     }
 
@@ -89,26 +109,19 @@ class KategoriController extends Controller{
         try {
             $kategori = Kategori::findOrFail($id);
             $kategori->delete();
-            return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus.');
+            return response()->json([
+                'status' => true,
+                'message' => 'Kategori berhasil dihapus.'
+            ]);
         } catch (\Exception $e) {
             Log::error('Error deleting kategori: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus kategori.');
+            return response()->json([
+                'status' => false,
+                'message' => 'Terjadi kesalahan saat menghapus kategori.'
+            ], 500);
         }
     }
-
-
-    private function getKategoriData(){
-        $kategori = Kategori::query();
-        return DataTables::of($kategori)
-            ->addColumn('aksi', function ($kategori) {
-                return view('Kategori.aksi', compact('kategori'));
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
-    }
 }
-
-
 
 
 

@@ -1,16 +1,23 @@
 <?php
 
 
+
+
 namespace App\Models;
+
+
 
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Level extends Model
-{
+
+
+class Level extends Model{
     use HasFactory;
+
+
 
 
     protected $table = 'm_level';
@@ -21,16 +28,27 @@ class Level extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-    public function users()
-    {
-        return $this->hasMany(UserModel::class, 'level_id', 'level_id');
+
+
+    public function users(){
+        return $this->hasMany(UserModel::class, 'level_id','level_nama');
     }
+
+
 
 
     public function level(){
-        return $this->belongsTo(Level::class, 'level_id', 'level_id');
+        return $this->belongsTo(Level::class, 'level_id','level_nama');
     }
 }
+
+
+
+
+
+
+
+
 
 
 

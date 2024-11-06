@@ -1,0 +1,169 @@
+
+
+
+
+.main-sidebar {
+    background-color: #a2669a !important;
+}
+
+
+
+
+
+
+
+
+.nav-sidebar .nav-link {
+    background: rgba(255, 255, 255, 0.1) !important;
+    margin: 4px 10px !important;
+    border-radius: 4px !important;
+    position: relative !important;
+    color: #000000 !important;
+    transition: all 0.3s ease !important;
+}
+
+
+
+
+
+
+
+
+.nav-header {
+    color: #000000 !important;
+    padding: 15px 15px 5px 20px !important;
+    opacity: 0.7;
+}
+
+
+
+
+
+
+
+
+.nav-sidebar .nav-link:hover,
+.nav-sidebar .nav-link.active {
+    background: rgb(255, 255, 255) !important;
+    color: #000000 !important;
+}
+
+
+
+
+
+
+
+
+.nav-sidebar .nav-link:hover::before,
+.nav-sidebar .nav-link.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background-color: #000000;
+    border-radius: 0 2px 2px 0;
+}
+
+
+
+
+
+
+
+
+.form-control-sidebar {
+    background: rgb(255, 255, 255) !important;
+    border: none !important;
+    color: #000000 !important;
+}
+
+
+
+
+.btn-sidebar {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: none !important;
+    color: #000000 !important;
+}
+
+
+
+
+/* Override AdminLTE default styles */
+[class*="sidebar-dark"] .nav-sidebar > .nav-item > .nav-link.active {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #000000 !important;
+}
+
+
+
+
+[class*="sidebar-dark"] .nav-sidebar > .nav-item > .nav-link:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+
+
+
+
+
+
+
+.nav-sidebar .nav-link i {
+    color: #000000 !important;
+}
+
+
+
+
+
+
+
+
+.nav-sidebar .nav-link {
+    display: flex !important;
+    align-items: center !important;
+    padding: 12px 15px !important;
+    margin: 5px 10px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 4px !important;
+    transition: all 0.3s ease !important;
+}
+
+
+
+
+
+
+
+
+.main-footer {
+    background-color: #a2669a !important;
+    color: #000000 !important;
+    padding: 1rem !important;
+}
+
+
+
+
+.main-footer a {
+    color: #000000 !important;
+    font-weight: bold !important;
+}
+
+
+
+
+.main-footer a:hover {
+    text-decoration: underline !important;
+}
+
+
+
+
+
+
+

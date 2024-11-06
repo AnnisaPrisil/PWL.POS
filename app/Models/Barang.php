@@ -4,12 +4,15 @@
 namespace App\Models;
 
 
+
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Barang extends Model
-{
+
+
+class Barang extends Model{
     use HasFactory;
 
 
@@ -26,6 +29,8 @@ class Barang extends Model
     }
 
 
+
+
     public static function generateUniqueCode(){
     $prefix = 'BRG';
     $code = $prefix . str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
@@ -36,12 +41,24 @@ class Barang extends Model
     }
 
 
+
+
     public function penjualanDetails(){
         return $this->hasMany(PenjualanDetail::class, 'barang_id', 'barang_id');
     }
 
 
+
+
 }
+
+
+
+
+
+
+
+
 
 
 

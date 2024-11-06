@@ -1,6 +1,8 @@
 <?php
 
+
 namespace App\Http\Controllers;
+
 
 use App\Models\Level;
 use Illuminate\Http\Request;
@@ -8,7 +10,11 @@ use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 
+
+
 class LevelController extends Controller{
+
+
 
 
     public function index(Request $request){
@@ -18,13 +24,19 @@ class LevelController extends Controller{
         ];
 
 
+
+
         if ($request->ajax()) {
             return $this->getLevelData();
         }
 
 
+
+
         return view('level.index', compact('breadcrumb'));
     }
+
+
 
 
     public function create(){
@@ -37,11 +49,15 @@ class LevelController extends Controller{
     }
 
 
+
+
     public function store(Request $request){
         $validated = $request->validate([
             'level_kode' => 'required|unique:m_level,level_kode|max:255',
             'level_nama' => 'required|max:255',
         ]);
+
+
 
 
         try {
@@ -52,6 +68,8 @@ class LevelController extends Controller{
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menambahkan level.')->withInput();
         }
     }
+
+
 
 
     public function destroy($id){
@@ -66,6 +84,8 @@ class LevelController extends Controller{
     }
 
 
+
+
     private function getLevelData(){
         $levels = Level::query();
         return DataTables::of($levels)
@@ -76,6 +96,14 @@ class LevelController extends Controller{
             ->make(true);
     }
 }
+
+
+
+
+
+
+
+
 
 
 
